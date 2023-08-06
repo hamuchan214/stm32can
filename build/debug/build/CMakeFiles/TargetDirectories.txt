@@ -1,3 +1,0 @@
-/home/ht/STM32CubeIDE/workspace_1.13.0/vstest/build/debug/build/CMakeFiles/rebuild_cache.dir
-/home/ht/STM32CubeIDE/workspace_1.13.0/vstest/build/debug/build/CMakeFiles/edit_cache.dir
-/home/ht/STM32CubeIDE/workspace_1.13.0/vstest/build/debug/build/CMakeFiles/vstest.dir
