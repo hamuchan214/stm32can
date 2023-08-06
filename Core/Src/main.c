@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +56,11 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void prints(const char* inputString) {
+    // 文字列の長さを計算
+    size_t length = strlen(inputString);
+    HAL_UART_Transmit(&huart2, inputString, length, 100);
+}
 /* USER CODE END 0 */
 
 /**
@@ -91,7 +95,7 @@ int main(void)
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
   static CAN_TxHeaderTypeDef TxHeader;
-  static CAN_RxHeaderTypeDef RxHeader;
+ //static CAN_RxHeaderTypeDef RxHeader;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,7 +104,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	 uint8_t msg[] = "hello stm\n";
-	 HAL_UART_Transmit(&huart2, msg, sizoof(msg), 100);
+	 HAL_UART_Transmit(&huart2, msg, sizeof(msg), 100);
 
 	 HAL_CAN_Start(&hcan);
 	 	 int CANID = 0x555;
@@ -124,10 +128,15 @@ int main(void)
        TxData[6]=0x77;
        TxData[0]=0x88;
 
-       HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData,&TxMailbox);
+       if(HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData,&TxMailbox) != HAL_OK )
+       {
+        Error_Handler();
+       }
+
+       prints("CAN Ok!");
+
 	 	 }
-
-
+     HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
