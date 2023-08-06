@@ -103,8 +103,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	 uint8_t msg[] = "hello stm\n";
-	 HAL_UART_Transmit(&huart2, msg, sizeof(msg), 100);
 
 	 HAL_CAN_Start(&hcan);
 	 	 int CANID = 0x555;
@@ -119,14 +117,14 @@ int main(void)
 	 		 TxHeader.DLC = 8;
 	 		 TxHeader.TransmitGlobalTime = DISABLE;
 
-       TxData[0]=0x11;
-       TxData[1]=0x22;
-       TxData[2]=0x33;
-       TxData[3]=0x44;
-       TxData[4]=0x55;
-       TxData[5]=0x66;
-       TxData[6]=0x77;
-       TxData[0]=0x88;
+       TxData[0]='h';
+       TxData[1]='e';
+       TxData[2]='l';
+       TxData[3]='l';
+       TxData[4]='o';
+       TxData[5]='s';
+       TxData[6]='t';
+       TxData[0]='m';
 
        if(HAL_CAN_AddTxMessage(&hcan,&TxHeader,TxData,&TxMailbox) != HAL_OK )
        {
